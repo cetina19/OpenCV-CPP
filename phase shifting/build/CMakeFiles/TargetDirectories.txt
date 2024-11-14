@@ -1,0 +1,3 @@
+C:/Users/craig/Desktop/opencv/test/task1/build/CMakeFiles/Task1.dir
+C:/Users/craig/Desktop/opencv/test/task1/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/craig/Desktop/opencv/test/task1/build/CMakeFiles/ZERO_CHECK.dir

@@ -1,0 +1,10 @@
+^C:\USERS\CRAIG\DESKTOP\OPENCV\TEST\TASK3\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/craig/Desktop/opencv/test/task3 -BC:/Users/craig/Desktop/opencv/test/task3/build --check-stamp-file C:/Users/craig/Desktop/opencv/test/task3/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

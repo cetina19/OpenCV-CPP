@@ -1,0 +1,10 @@
+^C:\USERS\CRAIG\DESKTOP\OPENCV\TEST\TASK2\BUILD\CMAKEFILES\EA4797B3009ECFC4C204BB3DE3C06D4B\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/craig/Desktop/opencv/test/task2 -BC:/Users/craig/Desktop/opencv/test/task2/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/craig/Desktop/opencv/test/task2/build/Task2.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

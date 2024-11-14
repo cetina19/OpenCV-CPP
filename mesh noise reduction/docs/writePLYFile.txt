@@ -1,0 +1,46 @@
+void writePLYFile(const std::string& filename, const std::vector<std::vector<std::vector<float>>>& organized_point_cloud, bool organized = false) {
+    std::ofstream plyFile(filename);
+
+    if (!plyFile) {
+        std::cout << "Unable to open file";
+        return;
+    }
+
+    // Calculate total vertices
+    size_t totalVertices = 0;
+    if (!organized){
+        for (const auto& row : organized_point_cloud) {
+            for (const auto& pt : row) {
+                if (!std::isnan(pt[0])) { // assuming if x is NaN, the entire point is invalid
+                    totalVertices++;
+                }
+            }
+        }
+    } 
+    else {
+        totalVertices = organized_point_cloud.size() * organized_point_cloud[0].size();
+    }
+   
+
+    plyFile << "ply\n";
+    plyFile << "format ascii 1.0\n";
+    plyFile << "element vertex " << totalVertices << "\n";
+    plyFile << "property float x\n";
+    plyFile << "property float y\n";
+    plyFile << "property float z\n";
+    plyFile << "property float nx\n";
+    plyFile << "property float ny\n";
+    plyFile << "property float nz\n";
+    plyFile << "element face " << 0 << "\n";
+    plyFile << "property list uchar int vertex_indices\n";
+    plyFile << "end_header\n";
+
+    for (const auto& row : organized_point_cloud) {
+        for (const auto& pt : row) {
+            if (organized || !std::isnan(pt[0])) { // assuming if x is NaN, the entire point is invalid
+                plyFile << pt[0] << " " << pt[1] << " " << pt[2] << " "
+                    << pt[3] << " " << pt[4] << " " << pt[5] << "\n";
+            }
+        }
+    }
+}

@@ -1,0 +1,46 @@
+std::vector<std::vector<std::vector<float>>> readPLYFileWithNormals(const std::string& filename, int width, int height) {
+    std::ifstream inFile(filename);
+    std::vector<std::vector<std::vector<float>>> organized_point_cloud(width, std::vector<std::vector<float>>(height, std::vector<float>(6, std::numeric_limits<float>::quiet_NaN())));  // Initialize with NaN values
+
+    std::string line;
+
+    if (!inFile) {
+        std::cerr << "Unable to open file\n";
+        return organized_point_cloud;  // return empty opc
+    }
+
+    // Read and skip header lines until we reach end_header
+    while (std::getline(inFile, line)) {
+        if (line == "end_header") {
+            break;
+        }
+    }
+
+    int nan = 0;
+    int no_nan = 0;
+    int current_row = 0, current_col = 0;
+
+    // Read data lines
+    while (std::getline(inFile, line) && current_row < width) {
+        std::istringstream lineStream(line);
+        float x, y, z, nx, ny, nz;
+
+        // If parsing succeeds and none of the values are NaN
+        if ((lineStream >> x >> y >> z >> nx >> ny >> nz)) {
+            organized_point_cloud[current_row][current_col] = { x, y, z, nx, ny, nz };
+            no_nan++;
+        }
+        else {
+            nan++;
+        }
+
+        current_col++;
+        if (current_col >= height) {
+            current_col = 0;
+            current_row++;
+        }
+    }
+
+    std::cout << "Nan: " << nan << " Not Nan: " << no_nan << std::endl;
+    return organized_point_cloud;
+}
